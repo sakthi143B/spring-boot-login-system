@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .sidebar {
+            height: 100vh;
+            background-color: #222d32;
+            color: white;
+            padding: 15px;
+        }
+        .sidebar a {
+            color: white;
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background-color: #1e282c;
+        }
+        .card-box {
+            padding: 20px;
+            border-radius: 8px;
+            color: white;
+            margin-bottom: 20px;
+        }
+        .bg-books { background-color: #00c0ef; }
+        .bg-members { background-color: #00a65a; }
+        .bg-newspapers { background-color: #f39c12; }
+        .bg-magazines { background-color: #dd4b39; }
+        .bg-issued { background-color: #00c0ef; }
+        .bg-returned { background-color: #dd4b39; }
+        .bg-not-returned { background-color: #00a65a; }
+        .bg-date { background-color: #f39c12; }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-2 sidebar">
+            <h4>SAIDELibrary</h4>
+            <p><strong>ronald</strong> <span class="text-success">● Online</span></p>
+            <a href="#">Dashboard</a>
+            <a href="#">Members</a>
+            <a href="#">Books</a>
+            <a href="#">Magazines</a>
+            <a href="#">Newspapers</a>
+            <a href="#">Issued</a>
+            <a href="#">Returned</a>
+            <a href="#">Not Returned</a>
+        </div>
+
+        <!-- Main content -->
+        <div class="col-md-10">
+            <h3 class="mt-4">SAIDE Library <small>Control Panel</small></h3>
+
+            <div class="row mt-4">
+                <div class="col-md-3">
+                    <div class="card-box bg-books">
+                        <h4>Books</h4>
+                        <p>3</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card-box bg-members">
+                        <h4>Members</h4>
+                        <p>2</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card-box bg-newspapers">
+                        <h4>Newspapers</h4>
+                        <p>1</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card-box bg-magazines">
+                        <h4>Magazines</h4>
+                        <p>0</p>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-box bg-issued">
+                        <h4>Issued</h4>
+                        <p>2</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card-box bg-returned">
+                        <h4>Returned</h4>
+                        <p>1</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card-box bg-not-returned">
+                        <h4>Not Returned</h4>
+                        <p>1</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card-box bg-date">
+                        <h4>Date Today</h4>
+                        <p th:text="${#dates.format(today, 'MM/dd/yyyy')}">--</p>
+                    </div>
+                </div>
+            </div>
+
+            <p class="mt-4">
+                <small><strong>SAIDE Community Library Management System</strong> Developed by Ronald Ngoda</small><br>
+                <small><strong>Version</strong> 1.1.0</small>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
