@@ -50,16 +50,6 @@ public class AuthController {
         return "redirect:/login";
     }
 
-    @GetMapping("/admin/dashboard")
-    public String adminDashboard(Model model) {
-        List<User> users = userRepository.findAll()
-                .stream()
-                .filter(u -> "USER".equalsIgnoreCase(u.getRole()))
-                .toList();
-        model.addAttribute("users", users);
-        return "admin_dashboard";
-    }
-
     @GetMapping("/user/dashboard")
     public String userDashboard() {
         return "user_dashboard";
@@ -69,5 +59,16 @@ public String homePage(Model model) {
     model.addAttribute("today", java.time.LocalDate.now());
     return "home";  // Loads home.html
 }
+@GetMapping("/admin/dashboard")
+public String adminDashboard(Model model) {
+    List<User> users = userRepository.findAll()
+            .stream()
+            .filter(u -> "USER".equalsIgnoreCase(u.getRole()))
+            .toList();
 
+    model.addAttribute("users", users);
+    model.addAttribute("usersCount", users.size());
+    model.addAttribute("booksCount", 5); // or get it from DB
+    return "admin_dashboard";
+}
 }
