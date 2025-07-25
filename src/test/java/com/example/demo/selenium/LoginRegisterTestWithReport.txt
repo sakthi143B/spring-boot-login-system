@@ -1,0 +1,76 @@
+package com.example.demo.selenium;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.Reporter;
+import org.testng.annotations.*;
+
+import java.lang.reflect.Method;
+import java.util.concurrent.TimeUnit;
+
+public class LoginRegisterTestWithReport {
+
+    private WebDriver driver;
+    private final String BASE_URL = "http://localhost:8080";
+
+    @BeforeClass
+    public void setupClass() {
+        // Set path to chromedriver if not in system PATH
+        System.setProperty("webdriver.chrome.driver", "C:\\path\\to\\chromedriver.exe");
+    }
+
+    @BeforeMethod
+    public void setUp(Method method) {
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.get(BASE_URL);
+        Reporter.log("Running: " + method.getName(), true);
+    }
+
+    @Test(priority = 1)
+    public void testRegisterPage() throws InterruptedException {
+        driver.get(BASE_URL + "/register");
+        driver.findElement(By.name("name")).sendKeys("Test User");
+        driver.findElement(By.name("email")).sendKeys("testuser@example.com");
+        driver.findElement(By.name("password")).sendKeys("password123");
+        driver.findElement(By.name("submit")).click();
+        Thread.sleep(2000);
+
+        Assert.assertTrue(driver.getPageSource().contains("Login"), "Registration failed.");
+    }
+
+    @Test(priority = 2)
+    public void testLoginPageSuccess() throws InterruptedException {
+        driver.get(BASE_URL + "/login");
+        driver.findElement(By.name("email")).sendKeys("testuser@example.com");
+        driver.findElement(By.name("password")).sendKeys("password123");
+        driver.findElement(By.name("submit")).click();
+        Thread.sleep(2000);
+
+        Assert.assertTrue(driver.getPageSource().contains("Welcome") || driver.getCurrentUrl().contains("/dashboard"), "Login failed.");
+    }
+
+    @Test(priority = 3)
+    public void testLoginPageFailure() throws InterruptedException {
+        driver.get(BASE_URL + "/login");
+        driver.findElement(By.name("email")).sendKeys("wrong@example.com");
+        driver.findElement(By.name("password")).sendKeys("wrongpass");
+        driver.findElement(By.name("submit")).click();
+        Thread.sleep(2000);
+
+        Assert.assertTrue(driver.getPageSource().contains("Invalid credentials"), "Invalid login not handled.");
+    }
+
+    @AfterMethod
+    public void tearDown(ITestResult result) {
+        if (result.getStatus() == ITestResult.FAILURE) {
+            Reporter.log("❌ Test Failed: " + result.getName(), true);
+        } else {
+            Reporter.log("✅ Test Passed: " + result.getName(), true);
+        }
+        driver.quit();
+    }
+}

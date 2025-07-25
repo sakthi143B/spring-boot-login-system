@@ -84,15 +84,15 @@
     </style>
 </head>
 <body>
-    <form class="register-container" method="post" action="/register">
-        <h2>Create Account</h2>
-        <input type="text" name="name" placeholder="Full Name" required />
-        <input type="email" name="email" placeholder="Email" required />
-        <input type="password" name="password" placeholder="Password" required />
-        <button type="submit">Register</button>
-        <div class="login-link">
-            Already have an account? <a href="/login">Login</a>
-        </div>
-    </form>
+    <form action="/register" method="post">
+  <input type="text" name="name" placeholder="Name" required />
+  <input type="email" name="email" placeholder="Email" required />
+  <input type="password" name="password" placeholder="Password" required />
+  <select name="role" required>
+    <option value="USER">User</option>
+    <option value="ADMIN">Admin</option>
+  </select>
+  <button type="submit">Register</button>
+</form>
 </body>
 </html>
